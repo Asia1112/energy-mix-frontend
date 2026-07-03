@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ChargingForm } from "./components/ChargingForm";
 import { EnergyLegend } from "./components/EnergyLegend";
 import { EnergyPieChart } from "./components/EnergyPieChart";
+import { LoadingState } from "./components/LoadingState";
 import { useEnergyMix } from "./hooks/useEnergyMix";
 import { useTheme } from "./hooks/useTheme";
 import "./App.css";
@@ -39,26 +40,30 @@ function App() {
         czas ladowania auta elektrycznego pod wzgledem udzialu czystej energii.
       </p>
 
-      {loading && <p>Ladowanie danych...</p>}
-
       {error && <p className="error">{error}</p>}
 
-      <EnergyLegend
-        fuels={fuels}
-        selectedFuel={selectedFuel}
-        onFuelSelect={handleFuelSelect}
-      />
-
-      <section className="grid">
-        {energyMix.map((day) => (
-          <EnergyPieChart
-            key={day.date}
-            day={day}
+      {loading ? (
+        <LoadingState />
+      ) : (
+        <>
+          <EnergyLegend
+            fuels={fuels}
             selectedFuel={selectedFuel}
             onFuelSelect={handleFuelSelect}
           />
-        ))}
-      </section>
+
+          <section className="grid">
+            {energyMix.map((day) => (
+              <EnergyPieChart
+                key={day.date}
+                day={day}
+                selectedFuel={selectedFuel}
+                onFuelSelect={handleFuelSelect}
+              />
+            ))}
+          </section>
+        </>
+      )}
 
       <ChargingForm />
     </main>
