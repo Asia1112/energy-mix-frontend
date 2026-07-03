@@ -1,6 +1,7 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { ChargingForm } from "./ChargingForm";
 import { getChargingWindow } from "../api/energyApi";
+import { translations } from "../i18n";
+import { ChargingForm } from "./ChargingForm";
 
 vi.mock("../api/energyApi", () => ({
   getChargingWindow: vi.fn()
@@ -14,7 +15,7 @@ describe("ChargingForm", () => {
   });
 
   it("keeps the input empty while the user deletes the current value", () => {
-    render(<ChargingForm />);
+    render(<ChargingForm t={translations.pl} />);
 
     const input = screen.getByRole("spinbutton") as HTMLInputElement;
 
@@ -24,14 +25,16 @@ describe("ChargingForm", () => {
   });
 
   it("shows validation and does not call the API for an empty value", () => {
-    render(<ChargingForm />);
+    render(<ChargingForm t={translations.pl} />);
 
     const input = screen.getByRole("spinbutton");
     fireEvent.change(input, { target: { value: "" } });
-    fireEvent.click(screen.getByRole("button", { name: "Oblicz" }));
+    fireEvent.click(
+      screen.getByRole("button", { name: translations.pl.chargingSubmit })
+    );
 
     expect(
-      screen.getByText("Wpisz czas ładowania od 1 do 6 godzin.")
+      screen.getByText(translations.pl.chargingValidation)
     ).toBeInTheDocument();
     expect(mockedGetChargingWindow).not.toHaveBeenCalled();
   });
@@ -43,12 +46,14 @@ describe("ChargingForm", () => {
       averageCleanEnergyPercentage: 82.5
     });
 
-    render(<ChargingForm />);
+    render(<ChargingForm t={translations.pl} />);
 
     fireEvent.change(screen.getByRole("spinbutton"), {
       target: { value: "3" }
     });
-    fireEvent.click(screen.getByRole("button", { name: "Oblicz" }));
+    fireEvent.click(
+      screen.getByRole("button", { name: translations.pl.chargingSubmit })
+    );
 
     await waitFor(() => {
       expect(mockedGetChargingWindow).toHaveBeenCalledWith(3);

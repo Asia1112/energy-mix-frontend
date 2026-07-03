@@ -6,6 +6,7 @@ interface Props {
   day: DailyEnergyMix;
   selectedFuel: string | null;
   onFuelSelect: (fuel: string) => void;
+  cleanEnergyLabel: string;
 }
 
 interface PieLabelProps {
@@ -48,7 +49,12 @@ function renderPieLabel({
   );
 }
 
-export function EnergyPieChart({ day, selectedFuel, onFuelSelect }: Props) {
+export function EnergyPieChart({
+  day,
+  selectedFuel,
+  onFuelSelect,
+  cleanEnergyLabel
+}: Props) {
   const chartData = Object.entries(day.mix).map(([fuel, value]) => ({
     name: fuel,
     value
@@ -59,7 +65,7 @@ export function EnergyPieChart({ day, selectedFuel, onFuelSelect }: Props) {
       <h2>{day.date}</h2>
 
       <p className="clean-energy-badge">
-        Czysta energia <strong>{day.cleanEnergyPercentage}%</strong>
+        {cleanEnergyLabel} <strong>{day.cleanEnergyPercentage}%</strong>
       </p>
 
       <div className="chart">

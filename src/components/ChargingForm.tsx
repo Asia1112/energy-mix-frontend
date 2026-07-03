@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { getChargingWindow } from "../api/energyApi";
 import type { ChargingWindowResult } from "../api/energyApi";
+import type { Translations } from "../i18n";
+
+interface Props {
+  t: Translations;
+}
 
 function formatDate(dateString: string): string {
   return new Date(dateString).toLocaleString("pl-PL", {
@@ -9,7 +14,7 @@ function formatDate(dateString: string): string {
   });
 }
 
-export function ChargingForm() {
+export function ChargingForm({ t }: Props) {
   const [hours, setHours] = useState("3");
   const [result, setResult] = useState<ChargingWindowResult | null>(null);
   const [error, setError] = useState("");
@@ -22,7 +27,7 @@ export function ChargingForm() {
     const hoursValue = Number(hours);
 
     if (!hours || hoursValue < 1 || hoursValue > 6) {
-      setError("Wpisz czas ładowania od 1 do 6 godzin.");
+      setError(t.chargingValidation);
       return;
     }
 
@@ -30,22 +35,20 @@ export function ChargingForm() {
       const data = await getChargingWindow(hoursValue);
       setResult(data);
     } catch {
-      setError("Nie udało się obliczyć najlepszego okna ładowania.");
+      setError(t.chargingError);
     }
   }
 
   return (
     <section className="card charging-card">
       <div className="section-heading">
-        <h2>Najlepsze okno ładowania auta</h2>
-        <p>
-          Sprawdź, kiedy ładować auto przy najwyższym udziale czystej energii.
-        </p>
+        <h2>{t.chargingTitle}</h2>
+        <p>{t.chargingDescription}</p>
       </div>
 
       <form className="charging-form" onSubmit={handleSubmit}>
         <label className="field">
-          <span>Czas ładowania</span>
+          <span>{t.chargingTime}</span>
           <input
             type="number"
             min="1"
@@ -58,10 +61,10 @@ export function ChargingForm() {
         </label>
 
         <p className="field-hint" id="charging-hours-hint">
-          Od 1 do 6 godzin
+          {t.chargingHint}
         </p>
 
-        <button type="submit">Oblicz</button>
+        <button type="submit">{t.chargingSubmit}</button>
       </form>
 
       {error && <p className="alert alert-error">{error}</p>}
@@ -69,15 +72,15 @@ export function ChargingForm() {
       {result && (
         <div className="result">
           <div>
-            <span>Start</span>
+            <span>{t.resultStart}</span>
             <strong>{formatDate(result.start)}</strong>
           </div>
           <div>
-            <span>Koniec</span>
+            <span>{t.resultEnd}</span>
             <strong>{formatDate(result.end)}</strong>
           </div>
           <div>
-            <span>Średni udział czystej energii</span>
+            <span>{t.resultAverageCleanEnergy}</span>
             <strong>{result.averageCleanEnergyPercentage}%</strong>
           </div>
         </div>

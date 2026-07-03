@@ -5,7 +5,7 @@ import type { DailyEnergyMix } from "../api/energyApi";
 export function useEnergyMix() {
   const [energyMix, setEnergyMix] = useState<DailyEnergyMix[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     async function loadEnergyMix() {
@@ -13,7 +13,7 @@ export function useEnergyMix() {
         const data = await getEnergyMix();
         setEnergyMix(data);
       } catch {
-        setError("Nie udało się pobrać danych o miksie energetycznym.");
+        setError(true);
       } finally {
         setLoading(false);
       }

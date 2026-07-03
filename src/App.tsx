@@ -4,11 +4,13 @@ import { EnergyLegend } from "./components/EnergyLegend";
 import { EnergyPieChart } from "./components/EnergyPieChart";
 import { LoadingState } from "./components/LoadingState";
 import { useEnergyMix } from "./hooks/useEnergyMix";
+import { useLanguage } from "./hooks/useLanguage";
 import { useTheme } from "./hooks/useTheme";
 import "./App.css";
 
 function App() {
   const { energyMix, loading, error } = useEnergyMix();
+  const { t, toggleLanguage } = useLanguage();
   const { theme, toggleTheme } = useTheme();
   const [selectedFuel, setSelectedFuel] = useState<string | null>(null);
 
@@ -25,25 +27,35 @@ function App() {
       <div className="app-header">
         <h1>Energy Mix UK</h1>
 
-        <button
-          className="theme-toggle"
-          type="button"
-          onClick={toggleTheme}
-          aria-label={`Wlacz tryb ${theme === "dark" ? "jasny" : "ciemny"}`}
-        >
-          {theme === "dark" ? "Light mode" : "Dark mode"}
-        </button>
+        <div className="app-actions">
+          <button
+            className="theme-toggle"
+            type="button"
+            onClick={toggleTheme}
+            aria-label={`${t.themeToggleLabel} ${
+              theme === "dark" ? t.themeLight : t.themeDark
+            }`}
+          >
+            {theme === "dark" ? "Light mode" : "Dark mode"}
+          </button>
+
+          <button
+            className="language-toggle"
+            type="button"
+            onClick={toggleLanguage}
+            aria-label={t.languageToggleLabel}
+          >
+            {t.languageToggleText}
+          </button>
+        </div>
       </div>
 
-      <p className="app-description">
-        Aplikacja pokazuje miks energetyczny Wielkiej Brytanii oraz najlepszy
-        czas ładowania auta elektrycznego pod względem udziału czystej energii.
-      </p>
+      <p className="app-description">{t.appDescription}</p>
 
-      {error && <p className="alert alert-error">{error}</p>}
+      {error && <p className="alert alert-error">{t.energyMixError}</p>}
 
       {loading ? (
-        <LoadingState />
+        <LoadingState label={t.loading} />
       ) : (
         <>
           <EnergyLegend
@@ -60,16 +72,17 @@ function App() {
                   day={day}
                   selectedFuel={selectedFuel}
                   onFuelSelect={handleFuelSelect}
+                  cleanEnergyLabel={t.cleanEnergy}
                 />
               ))}
             </section>
           ) : (
-            <p className="empty-state">Brak danych do wyświetlenia.</p>
+            <p className="empty-state">{t.emptyState}</p>
           )}
         </>
       )}
 
-      <ChargingForm />
+      <ChargingForm t={t} />
     </main>
   );
 }
