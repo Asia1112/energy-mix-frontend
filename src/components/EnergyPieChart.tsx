@@ -8,6 +8,48 @@ interface Props {
   onFuelSelect: (fuel: string) => void;
 }
 
+interface PieLabelProps {
+  cx?: number;
+  cy?: number;
+  midAngle?: number;
+  outerRadius?: number;
+  value?: number;
+}
+
+const RADIAN = Math.PI / 180;
+
+function renderPieLabel({
+  cx = 0,
+  cy = 0,
+  midAngle = 0,
+  outerRadius = 0,
+  value = 0
+}: PieLabelProps) {
+  if (value < 2) {
+    return null;
+  }
+
+  const labelRadius = outerRadius + 16;
+  const rawX = cx + labelRadius * Math.cos(-midAngle * RADIAN);
+  const rawY = cy + labelRadius * Math.sin(-midAngle * RADIAN);
+  const x = Math.min(Math.max(rawX, 36), 248);
+  const y = Math.min(Math.max(rawY, 16), 246);
+
+  return (
+    <text
+      x={x}
+      y={y}
+      fill="var(--text)"
+      fontSize={13}
+      fontWeight={700}
+      textAnchor={x > cx ? "start" : "end"}
+      dominantBaseline="central"
+    >
+      {value.toFixed(1)}
+    </text>
+  );
+}
+
 export function EnergyPieChart({ day, selectedFuel, onFuelSelect }: Props) {
   const chartData = Object.entries(day.mix).map(([fuel, value]) => ({
     name: fuel,
@@ -29,10 +71,8 @@ export function EnergyPieChart({ day, selectedFuel, onFuelSelect }: Props) {
               data={chartData}
               dataKey="value"
               nameKey="name"
-              outerRadius={96}
-              label={({ value }) =>
-                Number(value) >= 2 ? Number(value).toFixed(1) : ""
-              }
+              outerRadius={88}
+              label={renderPieLabel}
               labelLine={false}
               onClick={(entry) => {
                 if (entry.name) {
