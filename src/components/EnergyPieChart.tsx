@@ -55,7 +55,15 @@ export function EnergyPieChart({ day }: Props) {
                 />
               ))}
             </Pie>
-            <Tooltip />
+            <Tooltip
+              contentStyle={{
+                background: "var(--surface)",
+                border: "1px solid var(--border)",
+                borderRadius: "8px",
+                color: "var(--text-h)"
+              }}
+              itemStyle={{ color: "var(--text-h)" }}
+            />
             <Legend />
           </PieChart>
         </ResponsiveContainer>

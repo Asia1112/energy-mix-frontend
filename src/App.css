@@ -3,10 +3,30 @@ main {
   margin: 0 auto;
   padding: 32px;
   font-family: Arial, sans-serif;
+  color: var(--text);
 }
 
-h1 {
-  text-align: center;
+.app-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  text-align: left;
+}
+
+.app-header p {
+  max-width: 780px;
+}
+
+.theme-toggle {
+  flex: 0 0 auto;
+  margin-top: 32px;
+  border: 1px solid var(--accent-border);
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-text);
+  font-weight: 700;
+  box-shadow: var(--shadow);
 }
 
 .grid {
@@ -17,12 +37,12 @@ h1 {
 }
 
 .card {
-  background: #ffffff;
-  border: 1px solid #dddddd;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 12px;
   padding: 20px;
   margin-top: 24px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow);
 }
 
 .chart {
@@ -41,25 +61,62 @@ input {
   margin-left: 12px;
   padding: 8px;
   width: 80px;
+  color: var(--text-h);
+  background: var(--surface-muted);
+  border: 1px solid var(--border);
+  border-radius: 6px;
 }
 
 button {
   padding: 10px 16px;
   cursor: pointer;
+  border: 1px solid var(--accent-border);
+  border-radius: 8px;
+  background: var(--accent-bg);
+  color: var(--text-h);
+}
+
+.theme-toggle {
+  background: var(--accent);
+  color: var(--accent-text);
 }
 
 .error {
-  color: darkred;
+  color: #ef4444;
 }
 
 .result {
   margin-top: 20px;
-  background: #f4f4f4;
+  background: var(--surface-muted);
   padding: 16px;
   border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.recharts-text {
+  fill: var(--text);
+}
+
+.recharts-legend-item-text {
+  color: var(--text) !important;
 }
 
 @media (max-width: 900px) {
+  main {
+    padding: 20px;
+  }
+
+  .app-header {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .theme-toggle {
+    align-self: flex-start;
+    margin-top: 0;
+  }
+
   .grid {
     grid-template-columns: 1fr;
   }
