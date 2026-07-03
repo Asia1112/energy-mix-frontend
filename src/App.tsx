@@ -3,13 +3,9 @@ import { getEnergyMix } from "./api/energyApi";
 import type { DailyEnergyMix } from "./api/energyApi";
 import { EnergyPieChart, getFuelColor } from "./components/EnergyPieChart";
 import { ChargingForm } from "./components/ChargingForm";
+import { isTheme } from "./theme";
+import type { Theme } from "./theme";
 import "./App.css";
-
-type Theme = "light" | "dark";
-
-function isTheme(value: string | null): value is Theme {
-  return value === "light" || value === "dark";
-}
 
 function App() {
   const [energyMix, setEnergyMix] = useState<DailyEnergyMix[]>([]);
