@@ -9,10 +9,15 @@ interface Props {
 
 type ChargingError = "validation" | "request";
 
-function formatDate(dateString: string, locale: string): string {
+function formatDate(
+  dateString: string,
+  locale: string,
+  hour12: boolean
+): string {
   return new Date(dateString).toLocaleString(locale, {
     dateStyle: "short",
-    timeStyle: "short"
+    timeStyle: "short",
+    hour12
   });
 }
 
@@ -84,11 +89,15 @@ export function ChargingForm({ t }: Props) {
         <div className="result">
           <div>
             <span>{t.resultStart}</span>
-            <strong>{formatDate(result.start, t.dateLocale)}</strong>
+            <strong>
+              {formatDate(result.start, t.dateLocale, t.dateHour12)}
+            </strong>
           </div>
           <div>
             <span>{t.resultEnd}</span>
-            <strong>{formatDate(result.end, t.dateLocale)}</strong>
+            <strong>
+              {formatDate(result.end, t.dateLocale, t.dateHour12)}
+            </strong>
           </div>
           <div>
             <span>{t.resultAverageCleanEnergy}</span>

@@ -7,6 +7,7 @@ export interface Translations {
   languageToggleLabel: string;
   languageToggleText: string;
   dateLocale: string;
+  dateHour12: boolean;
   legendLabel: string;
   appDescription: string;
   loading: string;
@@ -33,6 +34,7 @@ export const translations: Record<Language, Translations> = {
     languageToggleLabel: "Zmień język na angielski",
     languageToggleText: "English",
     dateLocale: "pl-PL",
+    dateHour12: false,
     legendLabel: "Legenda paliw",
     appDescription:
       "Aplikacja pokazuje miks energetyczny Wielkiej Brytanii oraz najlepszy czas ładowania auta elektrycznego pod względem udziału czystej energii.",
@@ -59,6 +61,7 @@ export const translations: Record<Language, Translations> = {
     languageToggleLabel: "Change language to Polish",
     languageToggleText: "Polski",
     dateLocale: "en-GB",
+    dateHour12: true,
     legendLabel: "Fuel legend",
     appDescription:
       "The app shows the United Kingdom energy mix and the best electric car charging time based on the share of clean energy.",
