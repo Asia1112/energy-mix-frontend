@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getEnergyMix } from "./api/energyApi";
 import type { DailyEnergyMix } from "./api/energyApi";
-import { EnergyPieChart } from "./components/EnergyPieChart";
+import { EnergyPieChart, getFuelColor } from "./components/EnergyPieChart";
 import { ChargingForm } from "./components/ChargingForm";
 import "./App.css";
 
@@ -38,6 +38,10 @@ function App() {
     loadEnergyMix();
   }, []);
 
+  const fuels = Array.from(
+    new Set(energyMix.flatMap((day) => Object.keys(day.mix)))
+  );
+
   return (
     <main>
       <div className="app-header">
@@ -61,6 +65,20 @@ function App() {
       {loading && <p>Ładowanie danych...</p>}
 
       {error && <p className="error">{error}</p>}
+
+      {fuels.length > 0 && (
+        <div className="shared-legend" aria-label="Legenda paliw">
+          {fuels.map((fuel) => (
+            <span className="legend-item" key={fuel}>
+              <span
+                className="legend-color"
+                style={{ backgroundColor: getFuelColor(fuel) }}
+              />
+              {fuel}
+            </span>
+          ))}
+        </div>
+      )}
 
       <section className="grid">
         {energyMix.map((day) => (

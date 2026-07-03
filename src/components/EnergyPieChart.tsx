@@ -3,8 +3,7 @@ import {
   Pie,
   Tooltip,
   Cell,
-  ResponsiveContainer,
-  Legend
+  ResponsiveContainer
 } from "recharts";
 import type { DailyEnergyMix } from "../api/energyApi";
 
@@ -12,17 +11,21 @@ interface Props {
   day: DailyEnergyMix;
 }
 
-const COLORS = [
-  "#0088FE",
-  "#00C49F",
-  "#FFBB28",
-  "#FF8042",
-  "#AF19FF",
-  "#FF4560",
-  "#775DD0",
-  "#26A69A",
-  "#546E7A"
-];
+const FUEL_COLORS: Record<string, string> = {
+  biomass: "#0088FE",
+  coal: "#00C49F",
+  gas: "#FF8042",
+  hydro: "#775DD0",
+  imports: "#FFBB28",
+  nuclear: "#AF19FF",
+  other: "#FF4560",
+  solar: "#26A69A",
+  wind: "#546E7A"
+};
+
+export function getFuelColor(fuel: string) {
+  return FUEL_COLORS[fuel] ?? "#8b95a7";
+}
 
 export function EnergyPieChart({ day }: Props) {
   const chartData = Object.entries(day.mix).map(([fuel, value]) => ({
@@ -39,19 +42,22 @@ export function EnergyPieChart({ day }: Props) {
       </p>
 
       <div className="chart">
-        <ResponsiveContainer width="100%" height={300}>
-          <PieChart>
+        <ResponsiveContainer width="100%" height="100%">
+          <PieChart margin={{ top: 18, right: 34, bottom: 18, left: 34 }}>
             <Pie
               data={chartData}
               dataKey="value"
               nameKey="name"
-              outerRadius={100}
-              label
+              outerRadius={96}
+              label={({ value }) =>
+                Number(value) >= 2 ? Number(value).toFixed(1) : ""
+              }
+              labelLine={false}
             >
-              {chartData.map((_, index) => (
+              {chartData.map((item) => (
                 <Cell
-                  key={index}
-                  fill={COLORS[index % COLORS.length]}
+                  key={item.name}
+                  fill={getFuelColor(item.name)}
                 />
               ))}
             </Pie>
@@ -64,7 +70,6 @@ export function EnergyPieChart({ day }: Props) {
               }}
               itemStyle={{ color: "var(--text-h)" }}
             />
-            <Legend />
           </PieChart>
         </ResponsiveContainer>
       </div>
