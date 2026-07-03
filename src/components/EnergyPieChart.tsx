@@ -29,11 +29,9 @@ function renderPieLabel({
     return null;
   }
 
-  const labelRadius = outerRadius + 16;
-  const rawX = cx + labelRadius * Math.cos(-midAngle * RADIAN);
-  const rawY = cy + labelRadius * Math.sin(-midAngle * RADIAN);
-  const x = Math.min(Math.max(rawX, 36), 248);
-  const y = Math.min(Math.max(rawY, 16), 246);
+  const labelRadius = outerRadius + 26;
+  const x = cx + labelRadius * Math.cos(-midAngle * RADIAN);
+  const y = cy + labelRadius * Math.sin(-midAngle * RADIAN);
 
   return (
     <text
@@ -42,7 +40,7 @@ function renderPieLabel({
       fill="var(--text)"
       fontSize={13}
       fontWeight={700}
-      textAnchor={x > cx ? "start" : "end"}
+      textAnchor="middle"
       dominantBaseline="central"
     >
       {value.toFixed(1)}
@@ -71,7 +69,7 @@ export function EnergyPieChart({ day, selectedFuel, onFuelSelect }: Props) {
               data={chartData}
               dataKey="value"
               nameKey="name"
-              outerRadius={88}
+              outerRadius={76}
               label={renderPieLabel}
               labelLine={false}
               onClick={(entry) => {
