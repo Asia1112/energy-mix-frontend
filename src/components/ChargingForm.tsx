@@ -7,6 +7,8 @@ interface Props {
   t: Translations;
 }
 
+type ChargingError = "validation" | "request";
+
 function formatDate(dateString: string): string {
   return new Date(dateString).toLocaleString("pl-PL", {
     dateStyle: "short",
@@ -17,17 +19,17 @@ function formatDate(dateString: string): string {
 export function ChargingForm({ t }: Props) {
   const [hours, setHours] = useState("3");
   const [result, setResult] = useState<ChargingWindowResult | null>(null);
-  const [error, setError] = useState("");
+  const [error, setError] = useState<ChargingError | null>(null);
 
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
-    setError("");
+    setError(null);
     setResult(null);
 
     const hoursValue = Number(hours);
 
     if (!hours || hoursValue < 1 || hoursValue > 6) {
-      setError(t.chargingValidation);
+      setError("validation");
       return;
     }
 
@@ -35,7 +37,7 @@ export function ChargingForm({ t }: Props) {
       const data = await getChargingWindow(hoursValue);
       setResult(data);
     } catch {
-      setError(t.chargingError);
+      setError("request");
     }
   }
 
@@ -46,7 +48,7 @@ export function ChargingForm({ t }: Props) {
         <p>{t.chargingDescription}</p>
       </div>
 
-      <form className="charging-form" onSubmit={handleSubmit}>
+      <form className="charging-form" onSubmit={handleSubmit} noValidate>
         <label className="field">
           <span>{t.chargingTime}</span>
           <input
@@ -67,7 +69,11 @@ export function ChargingForm({ t }: Props) {
         <button type="submit">{t.chargingSubmit}</button>
       </form>
 
-      {error && <p className="alert alert-error">{error}</p>}
+      {error && (
+        <p className="alert alert-error">
+          {error === "validation" ? t.chargingValidation : t.chargingError}
+        </p>
+      )}
 
       {result && (
         <div className="result">

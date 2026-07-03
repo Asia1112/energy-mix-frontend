@@ -39,6 +39,21 @@ describe("ChargingForm", () => {
     expect(mockedGetChargingWindow).not.toHaveBeenCalled();
   });
 
+  it("shows validation in English when English translations are active", () => {
+    render(<ChargingForm t={translations.en} />);
+
+    const input = screen.getByRole("spinbutton");
+    fireEvent.change(input, { target: { value: "8" } });
+    fireEvent.click(
+      screen.getByRole("button", { name: translations.en.chargingSubmit })
+    );
+
+    expect(
+      screen.getByText(translations.en.chargingValidation)
+    ).toBeInTheDocument();
+    expect(mockedGetChargingWindow).not.toHaveBeenCalled();
+  });
+
   it("calls the API with the typed number and shows the result", async () => {
     mockedGetChargingWindow.mockResolvedValueOnce({
       start: "2026-07-04T00:00:00Z",
