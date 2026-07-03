@@ -28,7 +28,10 @@ describe("energyApi", () => {
 
     await expect(getEnergyMix()).resolves.toEqual(data);
     expect(mockedAxios.get).toHaveBeenCalledWith(
-      `${apiUrl}/api/energy-mix`
+      `${apiUrl}/api/energy-mix`,
+      {
+        timeout: 10000
+      }
     );
   });
 
@@ -43,7 +46,10 @@ describe("energyApi", () => {
 
     await expect(getChargingWindow(3)).resolves.toEqual(data);
     expect(mockedAxios.get).toHaveBeenCalledWith(
-      `${apiUrl}/api/charging-window?hours=3`
+      `${apiUrl}/api/charging-window?hours=3`,
+      {
+        timeout: 10000
+      }
     );
   });
 });
