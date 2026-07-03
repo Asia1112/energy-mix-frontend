@@ -31,7 +31,7 @@ describe("ChargingForm", () => {
     fireEvent.click(screen.getByRole("button", { name: "Oblicz" }));
 
     expect(
-      screen.getByText("Wpisz czas ladowania od 1 do 6 godzin.")
+      screen.getByText("Wpisz czas ładowania od 1 do 6 godzin.")
     ).toBeInTheDocument();
     expect(mockedGetChargingWindow).not.toHaveBeenCalled();
   });

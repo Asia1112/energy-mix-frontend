@@ -22,7 +22,7 @@ export function ChargingForm() {
     const hoursValue = Number(hours);
 
     if (!hours || hoursValue < 1 || hoursValue > 6) {
-      setError("Wpisz czas ladowania od 1 do 6 godzin.");
+      setError("Wpisz czas ładowania od 1 do 6 godzin.");
       return;
     }
 
@@ -35,12 +35,17 @@ export function ChargingForm() {
   }
 
   return (
-    <div className="card">
-      <h2>Najlepsze okno ładowania auta</h2>
+    <section className="card charging-card">
+      <div className="section-heading">
+        <h2>Najlepsze okno ładowania auta</h2>
+        <p>
+          Sprawdź, kiedy ładować auto przy najwyższym udziale czystej energii.
+        </p>
+      </div>
 
-      <form onSubmit={handleSubmit}>
-        <label>
-          Czas ładowania, od 1 do 6 godzin:
+      <form className="charging-form" onSubmit={handleSubmit}>
+        <label className="field">
+          <span>Czas ładowania</span>
           <input
             type="number"
             min="1"
@@ -48,28 +53,35 @@ export function ChargingForm() {
             step="1"
             value={hours}
             onChange={(event) => setHours(event.target.value)}
+            aria-describedby="charging-hours-hint"
           />
         </label>
+
+        <p className="field-hint" id="charging-hours-hint">
+          Od 1 do 6 godzin
+        </p>
 
         <button type="submit">Oblicz</button>
       </form>
 
-      {error && <p className="error">{error}</p>}
+      {error && <p className="alert alert-error">{error}</p>}
 
       {result && (
         <div className="result">
-          <p>
-            Start: <strong>{formatDate(result.start)}</strong>
-          </p>
-          <p>
-            Koniec: <strong>{formatDate(result.end)}</strong>
-          </p>
-          <p>
-            Średni udział czystej energii:{" "}
+          <div>
+            <span>Start</span>
+            <strong>{formatDate(result.start)}</strong>
+          </div>
+          <div>
+            <span>Koniec</span>
+            <strong>{formatDate(result.end)}</strong>
+          </div>
+          <div>
+            <span>Średni udział czystej energii</span>
             <strong>{result.averageCleanEnergyPercentage}%</strong>
-          </p>
+          </div>
         </div>
       )}
-    </div>
+    </section>
   );
 }

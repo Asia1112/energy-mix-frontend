@@ -18,8 +18,8 @@ export function EnergyPieChart({ day, selectedFuel, onFuelSelect }: Props) {
     <div className="card">
       <h2>{day.date}</h2>
 
-      <p>
-        Czysta energia: <strong>{day.cleanEnergyPercentage}%</strong>
+      <p className="clean-energy-badge">
+        Czysta energia <strong>{day.cleanEnergyPercentage}%</strong>
       </p>
 
       <div className="chart">

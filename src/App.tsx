@@ -35,12 +35,12 @@ function App() {
         </button>
       </div>
 
-      <p>
+      <p className="app-description">
         Aplikacja pokazuje miks energetyczny Wielkiej Brytanii oraz najlepszy
-        czas ladowania auta elektrycznego pod wzgledem udzialu czystej energii.
+        czas ładowania auta elektrycznego pod względem udziału czystej energii.
       </p>
 
-      {error && <p className="error">{error}</p>}
+      {error && <p className="alert alert-error">{error}</p>}
 
       {loading ? (
         <LoadingState />
@@ -52,16 +52,20 @@ function App() {
             onFuelSelect={handleFuelSelect}
           />
 
-          <section className="grid">
-            {energyMix.map((day) => (
-              <EnergyPieChart
-                key={day.date}
-                day={day}
-                selectedFuel={selectedFuel}
-                onFuelSelect={handleFuelSelect}
-              />
-            ))}
-          </section>
+          {energyMix.length > 0 ? (
+            <section className="grid">
+              {energyMix.map((day) => (
+                <EnergyPieChart
+                  key={day.date}
+                  day={day}
+                  selectedFuel={selectedFuel}
+                  onFuelSelect={handleFuelSelect}
+                />
+              ))}
+            </section>
+          ) : (
+            <p className="empty-state">Brak danych do wyświetlenia.</p>
+          )}
         </>
       )}
 

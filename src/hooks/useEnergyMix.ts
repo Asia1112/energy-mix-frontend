@@ -13,7 +13,7 @@ export function useEnergyMix() {
         const data = await getEnergyMix();
         setEnergyMix(data);
       } catch {
-        setError("Nie udalo sie pobrac danych o miksie energetycznym.");
+        setError("Nie udało się pobrać danych o miksie energetycznym.");
       } finally {
         setLoading(false);
       }
