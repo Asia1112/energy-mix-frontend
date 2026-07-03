@@ -1,4 +1,4 @@
-import { getFuelColor } from "./EnergyPieChart";
+import { getFuelColor } from "../fuelColors";
 
 interface Props {
   fuels: string[];

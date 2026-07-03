@@ -16,7 +16,7 @@ function App() {
   );
 
   function handleFuelSelect(fuel: string) {
-    setSelectedFuel((currentFuel) => currentFuel === fuel ? null : fuel);
+    setSelectedFuel((currentFuel) => (currentFuel === fuel ? null : fuel));
   }
 
   return (

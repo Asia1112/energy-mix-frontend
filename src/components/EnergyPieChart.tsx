@@ -1,32 +1,11 @@
-import {
-  PieChart,
-  Pie,
-  Tooltip,
-  Cell,
-  ResponsiveContainer
-} from "recharts";
+import { PieChart, Pie, Tooltip, Cell, ResponsiveContainer } from "recharts";
 import type { DailyEnergyMix } from "../api/energyApi";
+import { getFuelColor } from "../fuelColors";
 
 interface Props {
   day: DailyEnergyMix;
   selectedFuel: string | null;
   onFuelSelect: (fuel: string) => void;
-}
-
-const FUEL_COLORS: Record<string, string> = {
-  biomass: "#0088FE",
-  coal: "#00C49F",
-  gas: "#FF8042",
-  hydro: "#775DD0",
-  imports: "#FFBB28",
-  nuclear: "#AF19FF",
-  other: "#FF4560",
-  solar: "#26A69A",
-  wind: "#546E7A"
-};
-
-export function getFuelColor(fuel: string) {
-  return FUEL_COLORS[fuel] ?? "#8b95a7";
 }
 
 export function EnergyPieChart({ day, selectedFuel, onFuelSelect }: Props) {
@@ -66,7 +45,9 @@ export function EnergyPieChart({ day, selectedFuel, onFuelSelect }: Props) {
                 <Cell
                   key={item.name}
                   fill={getFuelColor(item.name)}
-                  opacity={!selectedFuel || selectedFuel === item.name ? 1 : 0.38}
+                  opacity={
+                    !selectedFuel || selectedFuel === item.name ? 1 : 0.38
+                  }
                   stroke={selectedFuel === item.name ? "var(--text-h)" : "none"}
                   strokeWidth={selectedFuel === item.name ? 3 : 0}
                 />

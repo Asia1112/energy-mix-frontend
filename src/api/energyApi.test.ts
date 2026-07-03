@@ -27,12 +27,9 @@ describe("energyApi", () => {
     mockedAxios.get.mockResolvedValueOnce({ data });
 
     await expect(getEnergyMix()).resolves.toEqual(data);
-    expect(mockedAxios.get).toHaveBeenCalledWith(
-      `${apiUrl}/api/energy-mix`,
-      {
-        timeout: 10000
-      }
-    );
+    expect(mockedAxios.get).toHaveBeenCalledWith(`${apiUrl}/api/energy-mix`, {
+      timeout: 10000
+    });
   });
 
   it("passes charging hours as a query parameter", async () => {
