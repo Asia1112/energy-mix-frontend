@@ -7,20 +7,25 @@ import "./App.css";
 
 type Theme = "light" | "dark";
 
+function isTheme(value: string | null): value is Theme {
+  return value === "light" || value === "dark";
+}
+
 function App() {
   const [energyMix, setEnergyMix] = useState<DailyEnergyMix[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [selectedFuel, setSelectedFuel] = useState<string | null>(null);
   const [theme, setTheme] = useState<Theme>(() => {
     const savedTheme = localStorage.getItem("theme");
-    return savedTheme === "dark" || savedTheme === "light"
-      ? savedTheme
-      : "light";
+    return isTheme(savedTheme) ? savedTheme : "light";
   });
 
   useEffect(() => {
-    document.documentElement.dataset.theme = theme;
-    localStorage.setItem("theme", theme);
+    const validatedTheme = isTheme(theme) ? theme : "light";
+
+    document.documentElement.dataset.theme = validatedTheme;
+    localStorage.setItem("theme", validatedTheme);
   }, [theme]);
 
   useEffect(() => {
@@ -69,7 +74,12 @@ function App() {
       {fuels.length > 0 && (
         <div className="shared-legend" aria-label="Legenda paliw">
           {fuels.map((fuel) => (
-            <span className="legend-item" key={fuel}>
+            <span
+              className={`legend-item ${
+                selectedFuel === fuel ? "legend-item-active" : ""
+              }`}
+              key={fuel}
+            >
               <span
                 className="legend-color"
                 style={{ backgroundColor: getFuelColor(fuel) }}
@@ -82,7 +92,14 @@ function App() {
 
       <section className="grid">
         {energyMix.map((day) => (
-          <EnergyPieChart key={day.date} day={day} />
+          <EnergyPieChart
+            key={day.date}
+            day={day}
+            selectedFuel={selectedFuel}
+            onFuelSelect={(fuel) =>
+              setSelectedFuel(selectedFuel === fuel ? null : fuel)
+            }
+          />
         ))}
       </section>
 

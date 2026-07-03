@@ -68,9 +68,23 @@ main {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  padding: 6px 8px;
+  border: 1px solid transparent;
+  border-radius: 6px;
   font-size: 15px;
   line-height: 1;
   white-space: nowrap;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease;
+}
+
+.legend-item-active {
+  color: var(--text-h);
+  background: var(--accent-bg);
+  border-color: var(--accent-border);
+  font-weight: 700;
 }
 
 .legend-color {
@@ -131,6 +145,10 @@ button {
 
 .recharts-legend-item-text {
   color: var(--text) !important;
+}
+
+.pie-slices {
+  cursor: pointer;
 }
 
 @media (max-width: 900px) {
