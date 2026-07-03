@@ -62,6 +62,7 @@ function App() {
             fuels={fuels}
             selectedFuel={selectedFuel}
             onFuelSelect={handleFuelSelect}
+            ariaLabel={t.legendLabel}
           />
 
           {energyMix.length > 0 ? (

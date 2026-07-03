@@ -4,15 +4,21 @@ interface Props {
   fuels: string[];
   selectedFuel: string | null;
   onFuelSelect: (fuel: string) => void;
+  ariaLabel: string;
 }
 
-export function EnergyLegend({ fuels, selectedFuel, onFuelSelect }: Props) {
+export function EnergyLegend({
+  fuels,
+  selectedFuel,
+  onFuelSelect,
+  ariaLabel
+}: Props) {
   if (fuels.length === 0) {
     return null;
   }
 
   return (
-    <div className="shared-legend" aria-label="Legenda paliw">
+    <div className="shared-legend" aria-label={ariaLabel}>
       {fuels.map((fuel) => (
         <button
           type="button"

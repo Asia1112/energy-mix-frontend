@@ -9,8 +9,8 @@ interface Props {
 
 type ChargingError = "validation" | "request";
 
-function formatDate(dateString: string): string {
-  return new Date(dateString).toLocaleString("pl-PL", {
+function formatDate(dateString: string, locale: string): string {
+  return new Date(dateString).toLocaleString(locale, {
     dateStyle: "short",
     timeStyle: "short"
   });
@@ -28,7 +28,12 @@ export function ChargingForm({ t }: Props) {
 
     const hoursValue = Number(hours);
 
-    if (!hours || hoursValue < 1 || hoursValue > 6) {
+    if (
+      !hours ||
+      !Number.isInteger(hoursValue) ||
+      hoursValue < 1 ||
+      hoursValue > 6
+    ) {
       setError("validation");
       return;
     }
@@ -79,11 +84,11 @@ export function ChargingForm({ t }: Props) {
         <div className="result">
           <div>
             <span>{t.resultStart}</span>
-            <strong>{formatDate(result.start)}</strong>
+            <strong>{formatDate(result.start, t.dateLocale)}</strong>
           </div>
           <div>
             <span>{t.resultEnd}</span>
-            <strong>{formatDate(result.end)}</strong>
+            <strong>{formatDate(result.end, t.dateLocale)}</strong>
           </div>
           <div>
             <span>{t.resultAverageCleanEnergy}</span>

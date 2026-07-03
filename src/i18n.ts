@@ -6,6 +6,8 @@ export interface Translations {
   themeLight: string;
   languageToggleLabel: string;
   languageToggleText: string;
+  dateLocale: string;
+  legendLabel: string;
   appDescription: string;
   loading: string;
   energyMixError: string;
@@ -30,6 +32,8 @@ export const translations: Record<Language, Translations> = {
     themeLight: "jasny",
     languageToggleLabel: "Zmień język na angielski",
     languageToggleText: "English",
+    dateLocale: "pl-PL",
+    legendLabel: "Legenda paliw",
     appDescription:
       "Aplikacja pokazuje miks energetyczny Wielkiej Brytanii oraz najlepszy czas ładowania auta elektrycznego pod względem udziału czystej energii.",
     loading: "Ładowanie danych...",
@@ -54,6 +58,8 @@ export const translations: Record<Language, Translations> = {
     themeLight: "light mode",
     languageToggleLabel: "Change language to Polish",
     languageToggleText: "Polski",
+    dateLocale: "en-GB",
+    legendLabel: "Fuel legend",
     appDescription:
       "The app shows the United Kingdom energy mix and the best electric car charging time based on the share of clean energy.",
     loading: "Loading data...",
