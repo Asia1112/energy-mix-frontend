@@ -10,7 +10,7 @@ function formatDate(dateString: string): string {
 }
 
 export function ChargingForm() {
-  const [hours, setHours] = useState(3);
+  const [hours, setHours] = useState("3");
   const [result, setResult] = useState<ChargingWindowResult | null>(null);
   const [error, setError] = useState("");
 
@@ -19,8 +19,15 @@ export function ChargingForm() {
     setError("");
     setResult(null);
 
+    const hoursValue = Number(hours);
+
+    if (!hours || hoursValue < 1 || hoursValue > 6) {
+      setError("Wpisz czas ladowania od 1 do 6 godzin.");
+      return;
+    }
+
     try {
-      const data = await getChargingWindow(hours);
+      const data = await getChargingWindow(hoursValue);
       setResult(data);
     } catch {
       setError("Nie udało się obliczyć najlepszego okna ładowania.");
@@ -40,7 +47,7 @@ export function ChargingForm() {
             max="6"
             step="1"
             value={hours}
-            onChange={(event) => setHours(Number(event.target.value))}
+            onChange={(event) => setHours(event.target.value)}
           />
         </label>
 
