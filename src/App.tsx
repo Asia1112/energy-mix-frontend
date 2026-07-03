@@ -1,47 +1,23 @@
-import { useEffect, useState } from "react";
-import { getEnergyMix } from "./api/energyApi";
-import type { DailyEnergyMix } from "./api/energyApi";
-import { EnergyPieChart, getFuelColor } from "./components/EnergyPieChart";
+import { useState } from "react";
 import { ChargingForm } from "./components/ChargingForm";
-import { isTheme } from "./theme";
-import type { Theme } from "./theme";
+import { EnergyLegend } from "./components/EnergyLegend";
+import { EnergyPieChart } from "./components/EnergyPieChart";
+import { useEnergyMix } from "./hooks/useEnergyMix";
+import { useTheme } from "./hooks/useTheme";
 import "./App.css";
 
 function App() {
-  const [energyMix, setEnergyMix] = useState<DailyEnergyMix[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const { energyMix, loading, error } = useEnergyMix();
+  const { theme, toggleTheme } = useTheme();
   const [selectedFuel, setSelectedFuel] = useState<string | null>(null);
-  const [theme, setTheme] = useState<Theme>(() => {
-    const savedTheme = localStorage.getItem("theme");
-    return isTheme(savedTheme) ? savedTheme : "light";
-  });
-
-  useEffect(() => {
-    const validatedTheme = isTheme(theme) ? theme : "light";
-
-    document.documentElement.dataset.theme = validatedTheme;
-    localStorage.setItem("theme", validatedTheme);
-  }, [theme]);
-
-  useEffect(() => {
-    async function loadEnergyMix() {
-      try {
-        const data = await getEnergyMix();
-        setEnergyMix(data);
-      } catch {
-        setError("Nie udało się pobrać danych o miksie energetycznym.");
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    loadEnergyMix();
-  }, []);
 
   const fuels = Array.from(
     new Set(energyMix.flatMap((day) => Object.keys(day.mix)))
   );
+
+  function handleFuelSelect(fuel: string) {
+    setSelectedFuel((currentFuel) => currentFuel === fuel ? null : fuel);
+  }
 
   return (
     <main>
@@ -51,7 +27,7 @@ function App() {
         <button
           className="theme-toggle"
           type="button"
-          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          onClick={toggleTheme}
           aria-label={`Wlacz tryb ${theme === "dark" ? "jasny" : "ciemny"}`}
         >
           {theme === "dark" ? "Light mode" : "Dark mode"}
@@ -60,31 +36,14 @@ function App() {
 
       <p>
         Aplikacja pokazuje miks energetyczny Wielkiej Brytanii oraz najlepszy
-        czas ładowania auta elektrycznego pod względem udziału czystej energii.
+        czas ladowania auta elektrycznego pod wzgledem udzialu czystej energii.
       </p>
 
-      {loading && <p>Ładowanie danych...</p>}
+      {loading && <p>Ladowanie danych...</p>}
 
       {error && <p className="error">{error}</p>}
 
-      {fuels.length > 0 && (
-        <div className="shared-legend" aria-label="Legenda paliw">
-          {fuels.map((fuel) => (
-            <span
-              className={`legend-item ${
-                selectedFuel === fuel ? "legend-item-active" : ""
-              }`}
-              key={fuel}
-            >
-              <span
-                className="legend-color"
-                style={{ backgroundColor: getFuelColor(fuel) }}
-              />
-              {fuel}
-            </span>
-          ))}
-        </div>
-      )}
+      <EnergyLegend fuels={fuels} selectedFuel={selectedFuel} />
 
       <section className="grid">
         {energyMix.map((day) => (
@@ -92,9 +51,7 @@ function App() {
             key={day.date}
             day={day}
             selectedFuel={selectedFuel}
-            onFuelSelect={(fuel) =>
-              setSelectedFuel(selectedFuel === fuel ? null : fuel)
-            }
+            onFuelSelect={handleFuelSelect}
           />
         ))}
       </section>
