@@ -43,7 +43,11 @@ function App() {
 
       {error && <p className="error">{error}</p>}
 
-      <EnergyLegend fuels={fuels} selectedFuel={selectedFuel} />
+      <EnergyLegend
+        fuels={fuels}
+        selectedFuel={selectedFuel}
+        onFuelSelect={handleFuelSelect}
+      />
 
       <section className="grid">
         {energyMix.map((day) => (

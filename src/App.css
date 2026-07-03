@@ -71,6 +71,9 @@ main {
   padding: 6px 8px;
   border: 1px solid transparent;
   border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
   font-size: 15px;
   line-height: 1;
   white-space: nowrap;
@@ -78,6 +81,12 @@ main {
     background-color 160ms ease,
     border-color 160ms ease,
     color 160ms ease;
+}
+
+.legend-item:hover,
+.legend-item:focus-visible {
+  background: var(--accent-bg);
+  border-color: var(--accent-border);
 }
 
 .legend-item-active {
