@@ -19,6 +19,7 @@ export interface Translations {
   chargingTime: string;
   chargingHint: string;
   chargingSubmit: string;
+  chargingLoading: string;
   chargingValidation: string;
   chargingError: string;
   resultStart: string;
@@ -48,6 +49,7 @@ export const translations: Record<Language, Translations> = {
     chargingTime: "Czas ładowania",
     chargingHint: "Od 1 do 6 godzin",
     chargingSubmit: "Oblicz",
+    chargingLoading: "Obliczanie...",
     chargingValidation: "Wpisz czas ładowania od 1 do 6 godzin.",
     chargingError: "Nie udało się obliczyć najlepszego okna ładowania.",
     resultStart: "Start",
@@ -75,6 +77,7 @@ export const translations: Record<Language, Translations> = {
     chargingTime: "Charging time",
     chargingHint: "From 1 to 6 hours",
     chargingSubmit: "Calculate",
+    chargingLoading: "Calculating...",
     chargingValidation: "Enter a charging time from 1 to 6 hours.",
     chargingError: "Could not calculate the best charging window.",
     resultStart: "Start",

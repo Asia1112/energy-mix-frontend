@@ -25,6 +25,7 @@ export function ChargingForm({ t }: Props) {
   const [hours, setHours] = useState("3");
   const [result, setResult] = useState<ChargingWindowResult | null>(null);
   const [error, setError] = useState<ChargingError | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
@@ -44,10 +45,13 @@ export function ChargingForm({ t }: Props) {
     }
 
     try {
+      setIsSubmitting(true);
       const data = await getChargingWindow(hoursValue);
       setResult(data);
     } catch {
       setError("request");
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
@@ -76,7 +80,25 @@ export function ChargingForm({ t }: Props) {
           {t.chargingHint}
         </p>
 
-        <button type="submit">{t.chargingSubmit}</button>
+        <button
+          className="charging-submit"
+          type="submit"
+          disabled={isSubmitting}
+          aria-label={isSubmitting ? t.chargingLoading : undefined}
+          aria-busy={isSubmitting}
+        >
+          {isSubmitting ? (
+            <>
+              <span
+                className="loading-spinner button-spinner"
+                aria-hidden="true"
+              />
+              <span className="sr-only">{t.chargingLoading}</span>
+            </>
+          ) : (
+            t.chargingSubmit
+          )}
+        </button>
       </form>
 
       {error && (

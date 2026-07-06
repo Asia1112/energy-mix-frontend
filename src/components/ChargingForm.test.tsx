@@ -91,4 +91,40 @@ describe("ChargingForm", () => {
 
     expect(screen.getByText("82.5%")).toBeInTheDocument();
   });
+
+  it("shows a loading spinner while calculating the charging window", async () => {
+    type ChargingResponse = Awaited<ReturnType<typeof getChargingWindow>>;
+    let resolveRequest: (value: ChargingResponse) => void;
+
+    mockedGetChargingWindow.mockReturnValueOnce(
+      new Promise((resolve) => {
+        resolveRequest = resolve;
+      })
+    );
+
+    render(<ChargingForm t={translations.en} />);
+
+    fireEvent.click(
+      screen.getByRole("button", { name: translations.en.chargingSubmit })
+    );
+
+    const loadingButton = screen.getByRole("button", {
+      name: translations.en.chargingLoading
+    });
+
+    expect(loadingButton).toBeDisabled();
+    expect(loadingButton.querySelector(".loading-spinner")).toBeInTheDocument();
+
+    resolveRequest!({
+      start: "2026-07-04T00:00:00Z",
+      end: "2026-07-04T03:00:00Z",
+      averageCleanEnergyPercentage: 82.5
+    });
+
+    await waitFor(() => {
+      expect(
+        screen.getByRole("button", { name: translations.en.chargingSubmit })
+      ).toBeEnabled();
+    });
+  });
 });
