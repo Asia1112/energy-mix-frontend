@@ -13,6 +13,7 @@ export interface Translations {
   legendLabel: string;
   appDescription: string;
   loading: string;
+  retry: string;
   energyMixError: string;
   emptyState: string;
   cleanEnergy: string;
@@ -44,6 +45,7 @@ export const translations: Record<Language, Translations> = {
     appDescription:
       "Aplikacja pokazuje miks energetyczny Wielkiej Brytanii oraz najlepszy czas ładowania auta elektrycznego pod względem udziału czystej energii.",
     loading: "Ładowanie danych...",
+    retry: "Spróbuj ponownie",
     energyMixError: "Nie udało się pobrać danych o miksie energetycznym.",
     emptyState: "Brak danych do wyświetlenia.",
     cleanEnergy: "Czysta energia",
@@ -74,6 +76,7 @@ export const translations: Record<Language, Translations> = {
     appDescription:
       "The app shows the United Kingdom energy mix and the best electric car charging time based on the share of clean energy.",
     loading: "Loading data...",
+    retry: "Try again",
     energyMixError: "Could not load energy mix data.",
     emptyState: "No data to display.",
     cleanEnergy: "Clean energy",

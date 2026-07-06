@@ -11,6 +11,7 @@ interface Props {
   selectedFuels: string[];
   t: Translations;
   onFuelSelect: (fuel: string) => void;
+  onRetry: () => void;
 }
 
 function getFuels(energyMix: DailyEnergyMix[]): string[] {
@@ -23,7 +24,8 @@ export function EnergyMixSection({
   loading,
   selectedFuels,
   t,
-  onFuelSelect
+  onFuelSelect,
+  onRetry
 }: Props) {
   const fuels = getFuels(energyMix);
 
@@ -31,7 +33,14 @@ export function EnergyMixSection({
     <>
       <p className="app-description">{t.appDescription}</p>
 
-      {error && <p className="alert alert-error">{t.energyMixError}</p>}
+      {error && (
+        <div className="alert alert-error retry-alert">
+          <p>{t.energyMixError}</p>
+          <button type="button" onClick={onRetry}>
+            {t.retry}
+          </button>
+        </div>
+      )}
 
       {loading ? (
         <LoadingState label={t.loading} />

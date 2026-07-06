@@ -281,6 +281,18 @@ button:disabled {
   border-color: rgba(239, 68, 68, 0.35);
 }
 
+.retry-alert {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.retry-alert p {
+  margin: 0;
+}
+
 .result {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

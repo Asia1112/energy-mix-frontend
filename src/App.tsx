@@ -8,7 +8,7 @@ import { useTheme } from "./hooks/useTheme";
 import "./App.css";
 
 function App() {
-  const { energyMix, loading, error } = useEnergyMix();
+  const { energyMix, loading, error, retry } = useEnergyMix();
   const { t, toggleLanguage } = useLanguage();
   const { theme, toggleTheme } = useTheme();
   const [selectedFuels, setSelectedFuels] = useState<string[]>([]);
@@ -37,6 +37,7 @@ function App() {
         selectedFuels={selectedFuels}
         t={t}
         onFuelSelect={handleFuelSelect}
+        onRetry={retry}
       />
 
       <ChargingForm t={t} />
