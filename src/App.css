@@ -331,8 +331,8 @@ button:disabled {
   cursor: pointer;
 }
 
-.pie-slices:focus,
-.pie-slices *:focus {
+:focus,
+:focus-visible {
   outline: none;
 }
 
