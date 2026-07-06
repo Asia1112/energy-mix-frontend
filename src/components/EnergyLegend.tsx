@@ -1,4 +1,4 @@
-import { getFuelColor } from "../fuelColors";
+import { getFuelColor } from "../lib/fuelColors";
 
 interface Props {
   fuels: string[];

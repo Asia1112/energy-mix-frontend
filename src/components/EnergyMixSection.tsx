@@ -1,5 +1,5 @@
 import type { DailyEnergyMix } from "../api/energyApi";
-import type { Translations } from "../i18n";
+import type { Translations } from "../i18n/i18n";
 import { EnergyLegend } from "./EnergyLegend";
 import { EnergyPieChart } from "./EnergyPieChart";
 import { LoadingState } from "./LoadingState";

@@ -1,32 +1,61 @@
-# React + TypeScript + Vite
+# Energy Mix Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+React + TypeScript frontend for the Energy Mix UK app. It shows the UK energy mix, lets users highlight fuels across charts, and calculates the best electric car charging window from backend data.
 
-Currently, two official plugins are available:
+## App Preview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+![alt text](image.png)
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- UK energy mix charts with shared fuel legend
+- Multiple fuel selection and chart highlighting
+- Best charging-window form
+- Polish and English language switcher
+- Light and dark theme toggle
+- Retry action when energy-mix data fails to load
 
-## Expanding the Oxlint configuration
+## Requirements
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+- Node.js 20+
+- Backend API running locally or deployed
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+## Environment
+
+Create `.env` from `.env.example`:
+
+```text
+VITE_API_URL=http://localhost:3000
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+`VITE_API_URL` should point to the backend API base URL.
+
+## Install
+
+```bash
+npm install
+```
+
+## Development
+
+```bash
+npm run dev
+```
+
+The Vite dev server starts the frontend locally.
+
+## Quality Checks
+
+```bash
+npm test
+npm run build
+npm run lint
+npm run format:check
+```
+
+## Production Preview
+
+```bash
+npm run build
+npm run preview
+```

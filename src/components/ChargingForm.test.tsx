@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { getChargingWindow } from "../api/energyApi";
-import { translations } from "../i18n";
+import { translations } from "../i18n/i18n";
 import { ChargingForm } from "./ChargingForm";
 
 vi.mock("../api/energyApi", () => ({
