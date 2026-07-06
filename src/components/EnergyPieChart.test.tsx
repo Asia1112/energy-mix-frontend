@@ -13,19 +13,10 @@ vi.mock("recharts", () => {
     Pie: ({
       children,
       data,
-      label,
       onClick
     }: {
       children: ReactNode;
       data: Array<{ name: string; value: number }>;
-      label?: (props: {
-        cx: number;
-        cy: number;
-        midAngle: number;
-        name: string;
-        outerRadius: number;
-        value: number;
-      }) => ReactNode;
       onClick: (entry: { name: string }) => void;
     }) => (
       <div data-testid="pie">
@@ -37,18 +28,6 @@ vi.mock("recharts", () => {
           >
             {item.name}
           </button>
-        ))}
-        {data.map((item) => (
-          <span data-testid="label" key={`${item.name}-label`}>
-            {label?.({
-              cx: 0,
-              cy: 0,
-              midAngle: 0,
-              name: item.name,
-              outerRadius: 0,
-              value: item.value
-            })}
-          </span>
         ))}
         {children}
       </div>
@@ -87,11 +66,9 @@ describe("EnergyPieChart", () => {
     expect(screen.getByText("Clean energy")).toBeInTheDocument();
     expect(screen.getByText("40%")).toBeInTheDocument();
     expect(screen.getAllByTestId("slice")).toHaveLength(2);
-    expect(screen.queryByText("40.0")).not.toBeInTheDocument();
-    expect(screen.queryByText("60.0")).not.toBeInTheDocument();
   });
 
-  it("dims unselected slices and labels selected slices when a fuel is selected", () => {
+  it("dims unselected slices when a fuel is selected", () => {
     render(
       <EnergyPieChart
         day={{
@@ -109,8 +86,6 @@ describe("EnergyPieChart", () => {
 
     expect(windSlice).toHaveAttribute("data-opacity", "1");
     expect(gasSlice).toHaveAttribute("data-opacity", "0.38");
-    expect(screen.getByText("40.0")).toBeInTheDocument();
-    expect(screen.queryByText("60.0")).not.toBeInTheDocument();
   });
 
   it("calls onFuelSelect when a slice is clicked", () => {

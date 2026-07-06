@@ -13,18 +13,20 @@ interface PieLabelProps {
   cx?: number;
   cy?: number;
   midAngle?: number;
-  name?: string;
   outerRadius?: number;
   value?: number;
 }
 
 const RADIAN = Math.PI / 180;
 
-function renderPieLabel(
-  { cx = 0, cy = 0, midAngle = 0, name, outerRadius = 0, value = 0 }: PieLabelProps,
-  selectedFuels: string[]
-) {
-  if (!name || !selectedFuels.includes(name) || value < 2) {
+function renderPieLabel({
+  cx = 0,
+  cy = 0,
+  midAngle = 0,
+  outerRadius = 0,
+  value = 0
+}: PieLabelProps) {
+  if (value < 2) {
     return null;
   }
 
@@ -74,7 +76,7 @@ export function EnergyPieChart({
               dataKey="value"
               nameKey="name"
               outerRadius={76}
-              label={(labelProps) => renderPieLabel(labelProps, selectedFuels)}
+              label={renderPieLabel}
               labelLine={false}
               onClick={(entry) => {
                 if (entry.name) {
