@@ -78,6 +78,7 @@ export function EnergyPieChart({
               outerRadius={76}
               label={renderPieLabel}
               labelLine={false}
+              isAnimationActive={false}
               onClick={(entry) => {
                 if (entry.name) {
                   onFuelSelect(entry.name);
