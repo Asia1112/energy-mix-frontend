@@ -8,7 +8,7 @@ interface Props {
   energyMix: DailyEnergyMix[];
   error: boolean;
   loading: boolean;
-  selectedFuel: string | null;
+  selectedFuels: string[];
   t: Translations;
   onFuelSelect: (fuel: string) => void;
 }
@@ -21,7 +21,7 @@ export function EnergyMixSection({
   energyMix,
   error,
   loading,
-  selectedFuel,
+  selectedFuels,
   t,
   onFuelSelect
 }: Props) {
@@ -39,7 +39,7 @@ export function EnergyMixSection({
         <>
           <EnergyLegend
             fuels={fuels}
-            selectedFuel={selectedFuel}
+            selectedFuels={selectedFuels}
             onFuelSelect={onFuelSelect}
             ariaLabel={t.legendLabel}
           />
@@ -50,7 +50,7 @@ export function EnergyMixSection({
                 <EnergyPieChart
                   key={day.date}
                   day={day}
-                  selectedFuel={selectedFuel}
+                  selectedFuels={selectedFuels}
                   onFuelSelect={onFuelSelect}
                   cleanEnergyLabel={t.cleanEnergy}
                 />

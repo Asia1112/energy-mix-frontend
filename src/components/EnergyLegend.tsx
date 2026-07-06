@@ -2,14 +2,14 @@ import { getFuelColor } from "../fuelColors";
 
 interface Props {
   fuels: string[];
-  selectedFuel: string | null;
+  selectedFuels: string[];
   onFuelSelect: (fuel: string) => void;
   ariaLabel: string;
 }
 
 export function EnergyLegend({
   fuels,
-  selectedFuel,
+  selectedFuels,
   onFuelSelect,
   ariaLabel
 }: Props) {
@@ -23,11 +23,11 @@ export function EnergyLegend({
         <button
           type="button"
           className={`legend-item ${
-            selectedFuel === fuel ? "legend-item-active" : ""
+            selectedFuels.includes(fuel) ? "legend-item-active" : ""
           }`}
           key={fuel}
           onClick={() => onFuelSelect(fuel)}
-          aria-pressed={selectedFuel === fuel}
+          aria-pressed={selectedFuels.includes(fuel)}
         >
           <span
             className="legend-color"

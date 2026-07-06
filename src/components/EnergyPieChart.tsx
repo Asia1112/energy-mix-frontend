@@ -4,7 +4,7 @@ import { getFuelColor } from "../fuelColors";
 
 interface Props {
   day: DailyEnergyMix;
-  selectedFuel: string | null;
+  selectedFuels: string[];
   onFuelSelect: (fuel: string) => void;
   cleanEnergyLabel: string;
 }
@@ -51,7 +51,7 @@ function renderPieLabel({
 
 export function EnergyPieChart({
   day,
-  selectedFuel,
+  selectedFuels,
   onFuelSelect,
   cleanEnergyLabel
 }: Props) {
@@ -90,10 +90,15 @@ export function EnergyPieChart({
                   key={item.name}
                   fill={getFuelColor(item.name)}
                   opacity={
-                    !selectedFuel || selectedFuel === item.name ? 1 : 0.38
+                    selectedFuels.length === 0 ||
+                    selectedFuels.includes(item.name)
+                      ? 1
+                      : 0.38
                   }
-                  stroke={selectedFuel === item.name ? "var(--text-h)" : "none"}
-                  strokeWidth={selectedFuel === item.name ? 3 : 0}
+                  stroke={
+                    selectedFuels.includes(item.name) ? "var(--text-h)" : "none"
+                  }
+                  strokeWidth={selectedFuels.includes(item.name) ? 3 : 0}
                 />
               ))}
             </Pie>

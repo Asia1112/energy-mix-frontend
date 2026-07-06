@@ -11,10 +11,14 @@ function App() {
   const { energyMix, loading, error } = useEnergyMix();
   const { t, toggleLanguage } = useLanguage();
   const { theme, toggleTheme } = useTheme();
-  const [selectedFuel, setSelectedFuel] = useState<string | null>(null);
+  const [selectedFuels, setSelectedFuels] = useState<string[]>([]);
 
   function handleFuelSelect(fuel: string) {
-    setSelectedFuel((currentFuel) => (currentFuel === fuel ? null : fuel));
+    setSelectedFuels((currentFuels) =>
+      currentFuels.includes(fuel)
+        ? currentFuels.filter((currentFuel) => currentFuel !== fuel)
+        : [...currentFuels, fuel]
+    );
   }
 
   return (
@@ -30,7 +34,7 @@ function App() {
         energyMix={energyMix}
         error={error}
         loading={loading}
-        selectedFuel={selectedFuel}
+        selectedFuels={selectedFuels}
         t={t}
         onFuelSelect={handleFuelSelect}
       />
