@@ -4,7 +4,7 @@ React + TypeScript frontend for the Energy Mix UK app. It shows the UK energy mi
 
 ## App Preview
 
-![alt text](image.png)
+![alt text](app_view.png)
 
 ## Features
 
