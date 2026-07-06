@@ -27,7 +27,7 @@ export function AppHeader({
             theme === "dark" ? t.themeLight : t.themeDark
           }`}
         >
-          {theme === "dark" ? "Light mode" : "Dark mode"}
+          {theme === "dark" ? t.themeLightButton : t.themeDarkButton}
         </button>
 
         <button

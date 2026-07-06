@@ -4,6 +4,8 @@ export interface Translations {
   themeToggleLabel: string;
   themeDark: string;
   themeLight: string;
+  themeDarkButton: string;
+  themeLightButton: string;
   languageToggleLabel: string;
   languageToggleText: string;
   dateLocale: string;
@@ -32,6 +34,8 @@ export const translations: Record<Language, Translations> = {
     themeToggleLabel: "Włącz tryb",
     themeDark: "ciemny",
     themeLight: "jasny",
+    themeDarkButton: "Tryb ciemny",
+    themeLightButton: "Tryb jasny",
     languageToggleLabel: "Zmień język na angielski",
     languageToggleText: "English",
     dateLocale: "pl-PL",
@@ -60,6 +64,8 @@ export const translations: Record<Language, Translations> = {
     themeToggleLabel: "Turn on",
     themeDark: "dark mode",
     themeLight: "light mode",
+    themeDarkButton: "Dark mode",
+    themeLightButton: "Light mode",
     languageToggleLabel: "Change language to Polish",
     languageToggleText: "Polski",
     dateLocale: "en-GB",
