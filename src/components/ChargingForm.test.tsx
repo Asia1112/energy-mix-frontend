@@ -92,6 +92,20 @@ describe("ChargingForm", () => {
     expect(screen.getByText("82.5%")).toBeInTheDocument();
   });
 
+  it("shows a request error when charging window calculation fails", async () => {
+    mockedGetChargingWindow.mockRejectedValueOnce(new Error("network"));
+
+    render(<ChargingForm t={translations.en} />);
+
+    fireEvent.click(
+      screen.getByRole("button", { name: translations.en.chargingSubmit })
+    );
+
+    expect(
+      await screen.findByText(translations.en.chargingError)
+    ).toBeInTheDocument();
+  });
+
   it("shows a loading spinner while calculating the charging window", async () => {
     type ChargingResponse = Awaited<ReturnType<typeof getChargingWindow>>;
     let resolveRequest: (value: ChargingResponse) => void;
