@@ -1,6 +1,6 @@
-import { AppHeader } from "../components/AppHeader";
-import { ChargingForm } from "../components/ChargingForm";
-import { EnergyMixSection } from "../components/EnergyMixSection";
+import { ChargingForm } from "../components/charging/ChargingForm";
+import { EnergyMixSection } from "../components/energy/EnergyMixSection";
+import { AppHeader } from "../components/layout/AppHeader";
 import { useEnergyMix } from "../hooks/useEnergyMix";
 import { useFuelSelection } from "../hooks/useFuelSelection";
 import { useLanguage } from "../hooks/useLanguage";

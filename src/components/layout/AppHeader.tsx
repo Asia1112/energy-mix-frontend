@@ -1,5 +1,5 @@
-import type { Translations } from "../i18n/i18n";
-import type { Theme } from "../lib/theme";
+import type { Translations } from "../../i18n/i18n";
+import type { Theme } from "../../lib/theme";
 
 interface Props {
   t: Translations;

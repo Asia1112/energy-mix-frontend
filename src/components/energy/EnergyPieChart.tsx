@@ -1,6 +1,6 @@
 import { PieChart, Pie, Tooltip, Cell, ResponsiveContainer } from "recharts";
-import type { DailyEnergyMix } from "../api/energyApi";
-import { getFuelColor } from "../lib/fuelColors";
+import type { DailyEnergyMix } from "../../api/energyApi";
+import { getFuelColor } from "../../lib/fuelColors";
 
 interface Props {
   day: DailyEnergyMix;

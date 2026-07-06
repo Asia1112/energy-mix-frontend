@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import { translations } from "../i18n/i18n";
+import { translations } from "../../i18n/i18n";
 import { EnergyMixSection } from "./EnergyMixSection";
 
 vi.mock("./EnergyPieChart", () => ({

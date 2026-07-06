@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { getChargingWindow } from "../api/energyApi";
-import type { ChargingWindowResult } from "../api/energyApi";
-import type { Translations } from "../i18n/i18n";
+import { getChargingWindow } from "../../api/energyApi";
+import type { ChargingWindowResult } from "../../api/energyApi";
+import type { Translations } from "../../i18n/i18n";
 
 interface Props {
   t: Translations;
