@@ -31,6 +31,10 @@ main {
   line-height: 1.6;
 }
 
+.energy-mix-panel {
+  min-height: 460px;
+}
+
 .theme-toggle,
 .language-toggle {
   border: 1px solid var(--accent-border);
@@ -90,7 +94,7 @@ main {
   align-items: center;
   justify-content: center;
   gap: 12px;
-  min-height: 240px;
+  min-height: 460px;
   margin-top: 32px;
   color: var(--text-h);
   background: var(--surface);
@@ -110,6 +114,7 @@ main {
 
 .empty-state {
   color: var(--text-h);
+  min-height: 46px;
 }
 
 .loading-spinner {
@@ -357,6 +362,11 @@ button:disabled {
 
   .grid {
     grid-template-columns: 1fr;
+  }
+
+  .energy-mix-panel,
+  .loading-state {
+    min-height: 1180px;
   }
 
   .result {

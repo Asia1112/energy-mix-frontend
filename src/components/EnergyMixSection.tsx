@@ -33,43 +33,45 @@ export function EnergyMixSection({
     <>
       <p className="app-description">{t.appDescription}</p>
 
-      {error && (
-        <div className="alert alert-error retry-alert">
-          <p>{t.energyMixError}</p>
-          <button type="button" onClick={onRetry}>
-            {t.retry}
-          </button>
-        </div>
-      )}
+      <section className="energy-mix-panel">
+        {error && (
+          <div className="alert alert-error retry-alert">
+            <p>{t.energyMixError}</p>
+            <button type="button" onClick={onRetry}>
+              {t.retry}
+            </button>
+          </div>
+        )}
 
-      {loading ? (
-        <LoadingState label={t.loading} />
-      ) : (
-        <>
-          <EnergyLegend
-            fuels={fuels}
-            selectedFuels={selectedFuels}
-            onFuelSelect={onFuelSelect}
-            ariaLabel={t.legendLabel}
-          />
+        {loading ? (
+          <LoadingState label={t.loading} />
+        ) : (
+          <>
+            <EnergyLegend
+              fuels={fuels}
+              selectedFuels={selectedFuels}
+              onFuelSelect={onFuelSelect}
+              ariaLabel={t.legendLabel}
+            />
 
-          {energyMix.length > 0 ? (
-            <section className="grid">
-              {energyMix.map((day) => (
-                <EnergyPieChart
-                  key={day.date}
-                  day={day}
-                  selectedFuels={selectedFuels}
-                  onFuelSelect={onFuelSelect}
-                  cleanEnergyLabel={t.cleanEnergy}
-                />
-              ))}
-            </section>
-          ) : (
-            <p className="empty-state">{t.emptyState}</p>
-          )}
-        </>
-      )}
+            {energyMix.length > 0 ? (
+              <section className="grid">
+                {energyMix.map((day) => (
+                  <EnergyPieChart
+                    key={day.date}
+                    day={day}
+                    selectedFuels={selectedFuels}
+                    onFuelSelect={onFuelSelect}
+                    cleanEnergyLabel={t.cleanEnergy}
+                  />
+                ))}
+              </section>
+            ) : (
+              <p className="empty-state">{t.emptyState}</p>
+            )}
+          </>
+        )}
+      </section>
     </>
   );
 }
