@@ -202,10 +202,18 @@ form {
   font-weight: 700;
 }
 
+.charging-input-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .field-hint {
-  align-self: center;
   color: var(--text);
   font-size: 14px;
+  font-weight: 400;
+  line-height: 1.2;
+  white-space: nowrap;
 }
 
 input {

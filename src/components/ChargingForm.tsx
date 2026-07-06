@@ -65,20 +65,21 @@ export function ChargingForm({ t }: Props) {
       <form className="charging-form" onSubmit={handleSubmit} noValidate>
         <label className="field">
           <span>{t.chargingTime}</span>
-          <input
-            type="number"
-            min="1"
-            max="6"
-            step="1"
-            value={hours}
-            onChange={(event) => setHours(event.target.value)}
-            aria-describedby="charging-hours-hint"
-          />
+          <span className="charging-input-row">
+            <input
+              type="number"
+              min="1"
+              max="6"
+              step="1"
+              value={hours}
+              onChange={(event) => setHours(event.target.value)}
+              aria-describedby="charging-hours-hint"
+            />
+            <span className="field-hint" id="charging-hours-hint">
+              {t.chargingHint}
+            </span>
+          </span>
         </label>
-
-        <p className="field-hint" id="charging-hours-hint">
-          {t.chargingHint}
-        </p>
 
         <button
           className="charging-submit"
