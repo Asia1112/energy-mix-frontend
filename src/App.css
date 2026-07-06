@@ -248,7 +248,8 @@ button:disabled {
   align-items: center;
   justify-content: center;
   min-width: 86px;
-  min-height: 41px;
+  height: 35px;
+  padding-block: 8px;
 }
 
 .button-spinner {
