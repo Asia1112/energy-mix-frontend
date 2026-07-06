@@ -332,6 +332,11 @@ button:disabled {
   cursor: pointer;
 }
 
+.pie-slices:focus,
+.pie-slices *:focus {
+  outline: none;
+}
+
 @media (max-width: 900px) {
   main {
     padding: 20px;
