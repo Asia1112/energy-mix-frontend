@@ -95,10 +95,6 @@ export function EnergyPieChart({
                       ? 1
                       : 0.38
                   }
-                  stroke={
-                    selectedFuels.includes(item.name) ? "var(--text-h)" : "none"
-                  }
-                  strokeWidth={selectedFuels.includes(item.name) ? 3 : 0}
                 />
               ))}
             </Pie>
